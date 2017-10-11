@@ -14,13 +14,8 @@ mongoose.connect(config.database);
 // ==========================
 // Starting Up The Server
 // ==========================
-let server;
-if (process.env.NODE_ENV !== config.test_env) {
-  server = app.listen(config.port);
-  console.log(`Your server is running on port ${config.port}.`);
-} else {
-  server = app.listen(config.test_port);
-}
+let server = app.listen(config.port);
+console.log(`Your server is running on port ${config.port}.`);
 
 // Setting up basic middleware for all Express requests
 app.use(bodyParser.urlencoded({ extended: false })); // Parses urlencoded bodies
