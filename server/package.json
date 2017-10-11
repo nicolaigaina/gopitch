@@ -8,8 +8,10 @@
     "npm": "5.4.2"
   },
   "scripts": {
-    "dev": "node index.js",
-    "watch": "nodemon index.js"
+    "start": "node index.js",
+    "server": "nodemon index.js",
+    "client": "npm run start --prefix client",
+    "dev": "npm run server"
   },
   "author": "Nicolai Gaina",
   "license": "ISC",
