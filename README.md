@@ -1,4 +1,4 @@
-## MEARN Starter Project
+## MERN Starter Project
 
 ## Front End 
 React, Redux
