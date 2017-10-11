@@ -1,6 +1,6 @@
 module.exports = {
     // Secret Key for JWT signing and encryption
-  secret: "secret_phrase", 
+  localSecret: "secret_phrase", 
   googleClientID:
     "149245050120-d51dlj4ooh68875af7t9o13r9jsojskj.apps.googleusercontent.com",
   googleClientSecret: "nbe2v5SH8r7SaeiDW7uUHeSI",
