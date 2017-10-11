@@ -3,23 +3,14 @@
 const jwt = require("jsonwebtoken"),
   crypto = require("crypto"),
   User = require("../models/user"),
-  config = require("../config/keys");
+  config = require("../config/keys"),
+  setUserInfo = require('../helpers').setUserInfo,
+  getRole = require('../helpers').getRole;
 
 function generateToken(user) {
   return jwt.sign(user, config.localSecret, {
-    expiresIn: 10000 // seconds
+    expiresIn: 604800 // seconds
   });
-}
-
-// Set User Info From Request
-function setUserInfo(request) {
-  return {
-    _id: request._id,
-    firstName: request.profile.firstName,
-    lastName: request.profile.lastName,
-    email: request.email,
-    role: request.role
-  };
 }
 
 // ==========================
