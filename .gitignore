@@ -27,6 +27,8 @@ build/Release
 node_modules
 client/node_modules
 server/node_modules
+server/cofig/dev.js
+server/dev.js
 
 # Optional npm cache directory
 .npm
@@ -36,3 +38,5 @@ server/node_modules
 
 # IDE
 .idea/
+
+dev.js
