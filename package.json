@@ -11,7 +11,8 @@
     "start": "node server/index.js",
     "server": "nodemon server/index.js",
     "client": "npm run start --prefix client",
-    "dev": "npm run server"
+    "dev": "npm run server",
+    "debug": "node --inspect server/index.js"
   },
   "author": "Nicolai Gaina",
   "license": "ISC",
@@ -23,6 +24,7 @@
     "jsonwebtoken": "^8.1.0",
     "mongoose": "^4.12.1",
     "morgan": "^1.9.0",
+    "mailgun-js": "^0.13.1",
     "passport": "^0.4.0",
     "passport-jwt": "^3.0.0",
     "passport-local": "^1.0.0"
