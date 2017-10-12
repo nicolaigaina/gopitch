@@ -4,6 +4,7 @@ const express = require("express"),
   logger = require("morgan"),
   mongoose = require("mongoose"),
   config = require("./config/keys"),
+  socketEvents = require("./socketEvents"),
   router = require("./router");
 
 // ==========================
@@ -16,6 +17,12 @@ mongoose.connect(config.database);
 // ==========================
 let server = app.listen(config.port);
 console.log(`Your server is running on port ${config.port}.`);
+
+// ==========================
+// Initializing Socket Connection
+// ==========================
+const io = require('socket.io').listen(server);
+socketEvents(io);
 
 // ==========================
 // Setting up basic middleware for all Express requests
