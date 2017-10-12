@@ -1,51 +1,52 @@
-const webpack = require("webpack");
-const path = require("path");
-const ExtractTextPlugin = require("extract-text-webpack-plugin");
+const polyfill = require('babel-polyfill');
+const path = require('path');
+const HotModuleReplacementPlugin = require('webpack').HotModuleReplacementPlugin;
 
-const config = {
-  context: __dirname,
-  entry: "./src/index.js",
+module.exports = () => ({
+  entry: [
+    'babel-polyfill',
+    'react-hot-loader/patch',
+    'webpack-dev-server/client?http://localhost:8080',
+    path.join(__dirname, 'src/index.js'),
+  ],
   output: {
-    path: __dirname,
-    filename: "bundle.js"
+    path: path.join(__dirname, 'dist'),
+    filename: 'bundle.js'
   },
+  devtool: '#eval-source-map',
+  plugins: [
+    new HotModuleReplacementPlugin(),
+  ],
   module: {
-    loaders: [
+    rules: [
       {
+        test: /\.js$/,
         exclude: /node_modules/,
-        test: /\.(js|jsx)$/,
-        loader: "babel"
+        include: path.join(__dirname, 'src'),
+        use: [
+          {
+            loader: 'babel-loader',
+            options: {
+              babelrc: false,
+              presets: [
+                ['es2015', { modules: false }],
+                'react',
+                'stage-2',
+              ],
+              plugins: ['react-hot-loader/babel'],
+            },
+          },
+        ],
       },
       {
-        test: /\.scss$/,
-        loader: ExtractTextPlugin.extract("css!sass")
-      }
-    ]
+        test: /\.(css|scss)$/,
+        loader: ['style-loader', 'css-loader', 'sass-loader'],
+      },
+    ],
   },
   devServer: {
     historyApiFallback: true,
-    contentBase: "./"
+    contentBase: './src',
+    hot: true,
   },
-  plugins: [
-    new webpack.DefinePlugin({
-      "process.env": { NODE_ENV: JSON.stringify("production") }
-    }),
-    new webpack.optimize.DedupePlugin(),
-    new webpack.optimize.OccurenceOrderPlugin(),
-    new webpack.optimize.UglifyJsPlugin({
-      compress: { warnings: false },
-      output: { comments: false },
-      mangle: false,
-      sourcemap: false,
-      minimize: true,
-      mangle: {
-        except: ["$super", "$", "exports", "require", "$q", "$ocLazyLoad"]
-      }
-    }),
-    new ExtractTextPlugin("src/public/stylesheets/app.css", {
-      allChunks: true
-    })
-  ]
-};
-
-module.exports = config;
+});
